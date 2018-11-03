@@ -1,4 +1,4 @@
-package feiteng.test.myapplication.rest.module;
+package feiteng.test.myapplication.modules;
 
 import javax.inject.Singleton;
 
@@ -12,13 +12,15 @@ public class MovieModule {
 
     @Singleton
     @Provides
-    public MovieRetrofit providerLocalRetrofit(){
+    // for RxJava
+    public MovieRetrofit provideMovieRetrofit(){
         return new MovieRetrofit();
     }
 
     @Singleton
     @Provides
-    public MovieService provideMovieRetrofit(MovieRetrofit movieRetrofit){
+    // for RxJava
+    public MovieService provideMovieService(MovieRetrofit movieRetrofit){
         return movieRetrofit.getRetrofit().create(MovieService.class);
     }
 }

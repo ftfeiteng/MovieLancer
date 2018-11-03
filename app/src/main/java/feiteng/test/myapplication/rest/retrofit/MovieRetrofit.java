@@ -10,7 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class MovieRetrofit {
     private String BASE_URL = "http://api.themoviedb.org/3/";
-    private String API_KEY="ac84c9dbd982a62aed1f0f5df62673d1";
 
     private static Retrofit retrofit;
 

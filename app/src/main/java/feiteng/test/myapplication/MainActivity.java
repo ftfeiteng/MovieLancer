@@ -2,54 +2,44 @@ package feiteng.test.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import javax.inject.Inject;
 
-import feiteng.test.myapplication.rest.data.MovieResult;
-import feiteng.test.myapplication.rest.retrofit.MovieRetrofit;
-import feiteng.test.myapplication.rest.service.MovieService;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
+import feiteng.test.myapplication.adapters.MovieAdapter;
+import feiteng.test.myapplication.modules.ViewModule;
+import feiteng.test.myapplication.persenters.MovieInterface;
+import feiteng.test.myapplication.persenters.MoviePresenter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieInterface.ViewInterface {
 
-    private String API_KEY = "ac84c9dbd982a62aed1f0f5df62673d1";
     @Inject
-    MovieService service;
+    MoviePresenter presenter;
+
+    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         setupComponent();
+        setContentView(R.layout.activity_main);
+        RecyclerView recyclerView = findViewById(R.id.movie_recyclerview);
+        // use a linear layout manager
+        RecyclerView.LayoutManager  layoutManager  = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-        service.getPopularMovies(API_KEY).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<MovieResult>() {
-                    @Override
-                    public void onNext(MovieResult value) {
-                        Log.d("TF_TEST", "Got Response");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("TF_TEST", "On Error:" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.d("TF_TEST", "On Complete");
-
-                    }
-                });
+        adapter = new MovieAdapter(this, presenter);
+        recyclerView.setAdapter(adapter);
+        presenter.sendRequest();
     }
 
-    private void setupComponent(){
-        DaggerMainComponent.builder().build().inject(this);
+    private void setupComponent() {
+        DaggerMainComponent.builder().viewModule(new ViewModule(this)).build().inject(this);
+    }
+
+    @Override
+    public void updateDataSet() {
+        adapter.notifyDataSetChanged();
     }
 }
