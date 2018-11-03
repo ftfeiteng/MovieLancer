@@ -2,6 +2,7 @@ package feiteng.test.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements MovieInterface.Vi
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.movie_recyclerview);
         // use a linear layout manager
-        RecyclerView.LayoutManager  layoutManager  = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2,
+                LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new MovieAdapter(this, presenter);
