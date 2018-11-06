@@ -1,29 +1,22 @@
-package feiteng.test.myapplication.adapters;
+package feiteng.test.myapplication.mvp.views.adapters;
 
-import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-
-import javax.inject.Inject;
 
 import feiteng.test.myapplication.R;
-import feiteng.test.myapplication.persenters.MoviePresenter;
-import feiteng.test.myapplication.persenters.MovieInterface;
+import feiteng.test.myapplication.mvp.presenters.MoviePresenter;
+import feiteng.test.myapplication.mvp.presenters.MovieInterface;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 

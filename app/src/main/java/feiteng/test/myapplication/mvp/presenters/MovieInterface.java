@@ -1,4 +1,4 @@
-package feiteng.test.myapplication.persenters;
+package feiteng.test.myapplication.mvp.presenters;
 
 public interface MovieInterface {
     public interface ViewInterface {

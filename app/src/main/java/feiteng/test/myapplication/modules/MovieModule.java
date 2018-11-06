@@ -12,14 +12,12 @@ public class MovieModule {
 
     @Singleton
     @Provides
-    // for RxJava
     public MovieRetrofit provideMovieRetrofit(){
         return new MovieRetrofit();
     }
 
     @Singleton
     @Provides
-    // for RxJava
     public MovieService provideMovieService(MovieRetrofit movieRetrofit){
         return movieRetrofit.getRetrofit().create(MovieService.class);
     }

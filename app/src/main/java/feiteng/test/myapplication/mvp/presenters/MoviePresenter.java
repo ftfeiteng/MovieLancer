@@ -1,55 +1,50 @@
-package feiteng.test.myapplication.persenters;
-
-import android.util.Log;
+package feiteng.test.myapplication.mvp.presenters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import feiteng.test.myapplication.mvp.model.MovieModel;
 import feiteng.test.myapplication.rest.data.Movie;
-import feiteng.test.myapplication.rest.data.MovieResult;
-import feiteng.test.myapplication.rest.service.MovieService;
+import feiteng.test.myapplication.rest.data.MovieResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class MoviePresenter {
 
-    private final String API_KEY = "ac84c9dbd982a62aed1f0f5df62673d1";
-    private final String POSTER_BASE_URL="http://image.tmdb.org/t/p/w185//";
+    public static final String API_KEY = "ac84c9dbd982a62aed1f0f5df62673d1";
+    private static final String POSTER_BASE_URL="http://image.tmdb.org/t/p/w185//";
     List<Movie> movieList = new ArrayList<>();
 
-    @Inject
-    MovieService service;
+    MovieModel model;
     MovieInterface.ViewInterface view;
 
     @Inject
-    MoviePresenter(MovieInterface.ViewInterface viewInterface) {
+    public MoviePresenter(MovieInterface.ViewInterface viewInterface, MovieModel model) {
         view = viewInterface;
+        this.model = model;
     }
 
-    //Request List of MovieResult
+    //Request List of MovieResponse
     public void sendRequest() {
-        service.getPopularMovies(API_KEY).subscribeOn(Schedulers.io())
+        model.getPopularMovies(API_KEY)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<MovieResult>() {
+                .subscribeWith(new DisposableObserver<MovieResponse>() {
                     @Override
-                    public void onNext(MovieResult value) {
-                        Log.d("TF_TEST", "Got Response");
+                    public void onNext(MovieResponse value) {
                         movieList = value.getResults();
                         view.updateDataSet();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("TF_TEST", "On Error:" + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.d("TF_TEST", "On Complete");
-
                     }
                 });
     }

@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Generated Pojo class from json of the reponse
  * example Get:https://api.themoviedb.org/3/movie/popular?api_key=YOUR_API_KEY
- * The response should be MovieResult (inculding Movie) in the JSON.
+ * The response should be MovieResponse (inculding Movie) in the JSON.
  */
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class MovieResult {
+public class MovieResponse {
     @Expose
     private Long page;
     @SerializedName("total_pages")

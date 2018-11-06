@@ -1,4 +1,4 @@
-package feiteng.test.myapplication;
+package feiteng.test.myapplication.mvp.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView;
 
 import javax.inject.Inject;
 
-import feiteng.test.myapplication.adapters.MovieAdapter;
+import feiteng.test.myapplication.DaggerMainComponent;
+import feiteng.test.myapplication.R;
+import feiteng.test.myapplication.mvp.views.adapters.MovieAdapter;
 import feiteng.test.myapplication.modules.ViewModule;
-import feiteng.test.myapplication.persenters.MovieInterface;
-import feiteng.test.myapplication.persenters.MoviePresenter;
+import feiteng.test.myapplication.mvp.presenters.MovieInterface;
+import feiteng.test.myapplication.mvp.presenters.MoviePresenter;
 
 public class MainActivity extends AppCompatActivity implements MovieInterface.ViewInterface {
 
